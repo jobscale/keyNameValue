@@ -20,4 +20,7 @@ class KeyNameValue {
     });
   }
 }
+module.exports = {
+  KeyNameValue,
+};
 
