@@ -1,26 +1,19 @@
-class KeyNameValue {
-  convert(obj, key, value) {
-    this.key = key || 'Name';
-    this.value = value || 'Value';
-    return Array.isArray(obj) ? this.fromNameValue(obj) : this.toNameValue(obj);
+export class KeyValuePairList {
+  convert(obj, key = 'Name', value = 'Value') {
+    return Array.isArray(obj)
+      ? this.unmap(obj, key, value)
+      : this.map(obj, key, value);
   }
-  fromNameValue(list) {
+
+  unmap(list, key = 'Name', value = 'Value') {
     const result = {};
-    list.forEach(item => {
-      result[item[this.key]] = item[this.value];
-    });
+    list.forEach(item => { result[item[key]] = item[value]; });
     return result;
   }
-  toNameValue(items) {
-    return Object.keys(items).map(key => {
-      const obj = {};
-      obj[this.key] = key;
-      obj[this.value] = items[key];
-      return obj;
-    });
+
+  map(items, key = 'Name', value = 'Value') {
+    return Object.entries(items).map(([k, v]) => ({ [key]: k, [value]: v }));
   }
 }
-module.exports = {
-  KeyNameValue,
-};
 
+export const keyValuePairList = new KeyValuePairList();
