@@ -6,9 +6,7 @@ export class KeyValuePairList {
   }
 
   unmap(list, key = 'Name', value = 'Value') {
-    const result = {};
-    list.forEach(item => { result[item[key]] = item[value]; });
-    return result;
+    return Object.fromEntries(list.map(item => [item[key], item[value]]));
   }
 
   map(items, key = 'Name', value = 'Value') {
